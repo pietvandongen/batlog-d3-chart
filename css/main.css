@@ -1,0 +1,10 @@
+body {
+    background: #eee;
+    padding: 1em;
+}
+
+#chart {
+    background: #fff;
+    height: 400px;
+    width: 100%;
+}
