@@ -1,10 +1,22 @@
 body {
-    background: #eee;
+    background: #fff;
+    color: #525763;
+    font-size: 10px;
     padding: 1em;
 }
 
+h2 {
+    color: #4396b6;
+}
+
 #chart {
-    background: #fff;
     height: 400px;
     width: 100%;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #525763;
+    shape-rendering: crispEdges;
 }
