@@ -1,8 +1,8 @@
-var dataFilePath = "/data/batlog.csv";
+var dropZone = d3.select("#dropZone");
 
-var chart = d3.select("#chart");
+var statusPlaceholder = d3.select("#userMessage");
 
-var chartWidth = chart.style("width");
+var chartWidth = dropZone.style("width");
 
 var textColor = "#525763";
 
@@ -61,8 +61,6 @@ var colorScale = d3.scale.linear()
         "#5e52a1"
     ]);
 
-var statusPlaceholder = d3.select("#status");
-
 var x = d3.time.scale()
     .range([0, width]);
 
@@ -87,34 +85,58 @@ var line = d3.svg.line()
         return y(d.time);
     });
 
-var svg = chart.append("svg")
+var svg = dropZone.append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-statusPlaceholder.text("Downloading data…");
-
-var dataFile = d3.csv(dataFilePath);
-
-statusPlaceholder.text("Parsing data…");
-
-var parsedData = dataFile.row(function (d) {
-    return {
-        date: d3.time.format("%Y-%m-%d").parse(d.Date.substring(0, 10)),
-        time: d3.time.format("%H:%M:%S").parse(d.Date.substring(11, 19)),
-        charge: +d.CurrentCapacity / +d.MaxCapacity
-    }
+dropZone.on("dragover", function () {
+    d3.event.preventDefault();
+    dropZone.classed("active", true);
 });
 
-statusPlaceholder.text("Plotting chart…");
+dropZone.on("dragenter", function () {
+    d3.event.preventDefault();
+    dropZone.classed("active", true);
+});
 
-parsedData.get(function (error, data) {
-    x.domain(d3.extent(data, function (d) {
+dropZone.on("dragleave", function () {
+    console.log("dragleave");
+    dropZone.classed("active", false);
+});
+
+dropZone.on("drop", function () {
+    d3.event.stopPropagation();
+    d3.event.preventDefault();
+
+    dropZone.classed("active", false);
+    dropZone.classed("parsing", true);
+    statusPlaceholder.text("Parsing data, drawing chart…");
+
+    var reader = new FileReader();
+
+    reader.onload = function (event) {
+        plotChart(event.target.result);
+    }
+
+    reader.readAsText(d3.event.dataTransfer.files[0]);
+});
+
+var plotChart = function (data) {
+    var parsedData = d3.csv.parse(data, function (d) {
+        return {
+            date: d3.time.format("%Y-%m-%d").parse(d.Date.substring(0, 10)),
+            time: d3.time.format("%H:%M:%S").parse(d.Date.substring(11, 19)),
+            charge: +d.CurrentCapacity / +d.MaxCapacity
+        }
+    });
+
+    x.domain(d3.extent(parsedData, function (d) {
         return d.date;
     }));
 
-    y.domain(d3.extent(data, function (d) {
+    y.domain(d3.extent(parsedData, function (d) {
         return d.time;
     }));
 
@@ -138,7 +160,7 @@ parsedData.get(function (error, data) {
         .attr("fill", textColor);
 
     svg.selectAll("circle")
-        .data(data)
+        .data(parsedData)
         .enter()
         .append("circle")
         .attr("cx", function (d) {
@@ -154,5 +176,5 @@ parsedData.get(function (error, data) {
             return colorScale(d.charge);
         });
 
-    statusPlaceholder.text("Done!");
-});
+    statusPlaceholder.remove();
+}

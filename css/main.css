@@ -5,8 +5,33 @@ body {
     padding: 1em;
 }
 
-h2 {
+a {
     color: #4396b6;
+    border-bottom: 1px solid #4396b6;
+    text-decoration: none;
+}
+
+#dropZone {
+    background: #eee;
+    border: 3px dashed #ccc;
+    height: 400px;
+    width: 100%;
+}
+
+#dropZone.active {
+    background: #fff;
+}
+
+#dropZone.parsing{
+    background: #fff;
+    border: 0;
+}
+
+#userMessage {
+    display: block;
+    font-size: 20px;
+    line-height: 400px;
+    text-align: center;
 }
 
 #chart {
