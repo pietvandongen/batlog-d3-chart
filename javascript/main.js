@@ -11,4 +11,4 @@ var data = d3.csv(dataFilePath, function (d) {
     };
 });
 
-console.log(data);
+console.log(data[0]);
