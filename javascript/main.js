@@ -53,8 +53,8 @@ var colorScale = d3.scale.linear()
 var margin = {
     top: 20,
     right: 20,
-    bottom: 100,
-    left: 50
+    bottom: 70,
+    left: 40
 };
 
 var width = chartWidth.substring(0, chartWidth.length - 2) - margin.left - margin.right;
@@ -103,7 +103,7 @@ var plotChart = function (data) {
         return {
             date: d3.time.format("%Y-%m-%d").parse(d.Date.substring(0, 10)),
             time: d3.time.format("%H:%M:%S").parse(d.Date.substring(11, 19)),
-            charge: +d.CurrentCapacity / +d.MaxCapacity
+            charge: d.CurrentCapacity / d.MaxCapacity
         }
     });
 
@@ -120,6 +120,7 @@ var plotChart = function (data) {
             d3.time.format("%H:%M:%S").parse("00:00:00"),
             d3.time.format("%H:%M:%S").parse("23:59:59")
         ])
+        .nice(d3.time.hour)
         .range([height, 0]);
 
     var xAxis = d3.svg.axis()
@@ -132,19 +133,13 @@ var plotChart = function (data) {
         .orient("left")
         .tickFormat(d3.time.format("%H:%M"));
 
-    y.domain(d3.extent(parsedData, function (d) {
-        return d.time;
-    }));
-
-    var numberOfDays = d3.time.days(x.domain()[0], x.domain()[1]).length;
-
-    var columnWidth = width / (numberOfDays);
+    var columnWidth = width / (d3.time.days(x.domain()[0], x.domain()[1]).length);
 
     svg.selectAll("rect")
         .data(parsedData)
         .enter()
         .append("rect")
-        .attr("x", function (d, i, j) {
+        .attr("x", function (d) {
             return x(d.date);
         })
         .attr("y", function (d) {
@@ -174,6 +169,23 @@ var plotChart = function (data) {
         .call(yAxis)
         .selectAll("text")
         .attr("fill", textColor);
+
+    svg.append("text")
+        .attr("class", "x label")
+        .attr("text-anchor", "end")
+        .attr("fill", textColor)
+        .attr("x", width)
+        .attr("y", height - 6)
+        .text("date");
+
+    svg.append("text")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .attr("fill", textColor)
+        .attr("y", 6)
+        .attr("dy", ".75em")
+        .attr("transform", "rotate(-90)")
+        .text("time of day");
 
     statusPlaceholder.remove();
 }
