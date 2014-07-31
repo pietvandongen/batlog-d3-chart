@@ -6,17 +6,6 @@ var chartWidth = dropZone.style("width");
 
 var textColor = "#525763";
 
-var margin = {
-    top: 20,
-    right: 20,
-    bottom: 100,
-    left: 50
-};
-
-var width = chartWidth.substring(0, chartWidth.length - 2) - margin.left - margin.right;
-
-var height = 400 - margin.top - margin.bottom;
-
 var colorScale = d3.scale.linear()
     .domain([
         0,
@@ -61,29 +50,16 @@ var colorScale = d3.scale.linear()
         "#5e52a1"
     ]);
 
-var x = d3.time.scale()
-    .range([0, width]);
+var margin = {
+    top: 20,
+    right: 20,
+    bottom: 100,
+    left: 50
+};
 
-var y = d3.time.scale()
-    .range([height, 0]);
+var width = chartWidth.substring(0, chartWidth.length - 2) - margin.left - margin.right;
 
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-    .tickFormat(d3.time.format("%Y-%m-%d"));
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(d3.time.format("%H:%M"));
-
-var line = d3.svg.line()
-    .x(function (d) {
-        return x(d.date);
-    })
-    .y(function (d) {
-        return y(d.time);
-    });
+var height = 400 - margin.top - margin.bottom;
 
 var svg = dropZone.append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -102,7 +78,6 @@ dropZone.on("dragenter", function () {
 });
 
 dropZone.on("dragleave", function () {
-    console.log("dragleave");
     dropZone.classed("active", false);
 });
 
@@ -124,7 +99,7 @@ dropZone.on("drop", function () {
 });
 
 var plotChart = function (data) {
-    var parsedData = d3.csv.parse(data, function (d) {
+    var parsedData = d3.csv.parse(data, function (d, i) {
         return {
             date: d3.time.format("%Y-%m-%d").parse(d.Date.substring(0, 10)),
             time: d3.time.format("%H:%M:%S").parse(d.Date.substring(11, 19)),
@@ -132,13 +107,54 @@ var plotChart = function (data) {
         }
     });
 
-    x.domain(d3.extent(parsedData, function (d) {
-        return d.date;
-    }));
+    var x = d3.time.scale()
+        .domain([
+            parsedData[0].date,
+            d3.time.day.offset(parsedData[parsedData.length - 1].date, 1)
+        ])
+        .nice(d3.time.day)
+        .range([0, width]);
+
+    var y = d3.time.scale()
+        .domain([
+            d3.time.format("%H:%M:%S").parse("00:00:00"),
+            d3.time.format("%H:%M:%S").parse("23:59:59")
+        ])
+        .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
+        .tickFormat(d3.time.format("%Y-%m-%d"));
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .tickFormat(d3.time.format("%H:%M"));
 
     y.domain(d3.extent(parsedData, function (d) {
         return d.time;
     }));
+
+    var numberOfDays = d3.time.days(x.domain()[0], x.domain()[1]).length;
+
+    var columnWidth = width / (numberOfDays);
+
+    svg.selectAll("rect")
+        .data(parsedData)
+        .enter()
+        .append("rect")
+        .attr("x", function (d, i, j) {
+            return x(d.date);
+        })
+        .attr("y", function (d) {
+            return y(d.time);
+        })
+        .attr("width", columnWidth)
+        .attr("height", 1)
+        .attr("fill", function (d) {
+            return colorScale(d.charge);
+        });
 
     svg.append("g")
         .attr("class", "x axis")
@@ -158,23 +174,6 @@ var plotChart = function (data) {
         .call(yAxis)
         .selectAll("text")
         .attr("fill", textColor);
-
-    svg.selectAll("circle")
-        .data(parsedData)
-        .enter()
-        .append("circle")
-        .attr("cx", function (d) {
-            return x(d.date);
-        })
-        .attr("cy", function (d) {
-            return y(d.time);
-        })
-        .attr("r", function (d) {
-            return 1;
-        })
-        .attr("fill", function (d) {
-            return colorScale(d.charge);
-        });
 
     statusPlaceholder.remove();
 }
