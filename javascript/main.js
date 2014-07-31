@@ -188,4 +188,4 @@ var plotChart = function (data) {
         .text("time of day");
 
     statusPlaceholder.remove();
-}
+};
