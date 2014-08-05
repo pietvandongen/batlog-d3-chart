@@ -4,59 +4,6 @@ var statusPlaceholder = d3.select("#userMessage");
 
 var chartWidth = dropZone.style("width");
 
-var textColor = "#525763";
-
-var colorScale = d3.scale.linear()
-    .domain([
-        0,
-        0.2,
-        0.4,
-        0.45,
-        0.5,
-        0.6,
-        0.65,
-        0.7,
-        0.725,
-        0.775,
-        0.825,
-        0.85,
-        0.875,
-        0.9,
-        0.925,
-        0.95,
-        0.96,
-        0.98,
-        1
-    ])
-    .range([
-        "#a21e1e",
-        "#d64351",
-        "#e75c4c",
-        "#f47a4f",
-        "#f99b5f",
-        "#fcbb72",
-        "#fdd789",
-        "#feeba3",
-        "#fffbbd",
-        "#f4fab2",
-        "#e6f49e",
-        "#c6e7a2",
-        "#a6daa7",
-        "#82cba6",
-        "#5fb6aa",
-        "#4396b6",
-        "#4178b4",
-        "#565aa5",
-        "#5e52a1"
-    ]);
-
-var margin = {
-    top: 20,
-    right: 20,
-    bottom: 70,
-    left: 40
-};
-
 var width = chartWidth.substring(0, chartWidth.length - 2) - margin.left - margin.right;
 
 var height = 400 - margin.top - margin.bottom;
@@ -93,13 +40,13 @@ dropZone.on("drop", function () {
 
     reader.onload = function (event) {
         plotChart(event.target.result);
-    }
+    };
 
     reader.readAsText(d3.event.dataTransfer.files[0]);
 });
 
 var plotChart = function (data) {
-    var parsedData = d3.csv.parse(data, function (d, i) {
+    var parsedData = d3.csv.parse(data, function (d) {
         return {
             date: d3.time.format("%Y-%m-%d").parse(d.Date.substring(0, 10)),
             time: d3.time.format("%H:%M:%S").parse(d.Date.substring(11, 19)),
@@ -160,9 +107,7 @@ var plotChart = function (data) {
         .attr("fill", textColor)
         .attr("dx", "-1em")
         .attr("dy", "-0.6em")
-        .attr("transform", function (d) {
-            return "rotate(-90)"
-        });
+        .attr("transform", "rotate(-90)");
 
     svg.append("g")
         .attr("class", "y axis")
