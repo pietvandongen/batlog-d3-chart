@@ -4,18 +4,18 @@ Visualize [batlog][1] data using the [D3.js][2] library.
 
 ## Demo
 
-Skip to [the demo page][5] for a demonstration of this project. It should look something like this:
+Skip to [the demo page][5] for a demonstration of this project. The result should look something like this:
 
 ![alt tag](http://pietvandongen.github.io/batlog-d3-chart/images/example.png)
 
 ## Requirements
 
 - A [batlog CSV file][4] (alternatively, you can convert a batlog `dat` file using the [batlog2csv][3] script).
-- A modern browser that support drag & drop and SVG.
+- A modern browser that supports drag & drop and SVG.
 
 ## Usage
 
-Load the `index.html` page and drop the batlog CSV file into the designated area. A graph of your data will be drawn.
+Load the `index.html` page (or use the [demo page][5]) and drop the batlog CSV file into the designated area. A graph of your data will be drawn.
 
 Depending on the size of your log file, system configuration and browser, this can take a while.
 
