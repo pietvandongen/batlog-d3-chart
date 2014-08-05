@@ -4,7 +4,7 @@ Visualize [batlog][1] data using the [D3.js][2] library.
 
 ## Demo
 
-Skip to [the demo page][5] for a demonstration of this project. You can use your own data file, or [example data][6]. 
+Skip to [the demo page][5] for a demonstration of this project. You can use your own data file, or [example][6] [data][7]. 
 
 The result should look something like this:
 
@@ -30,4 +30,5 @@ Apache License, Version 2.0, see `LICENSE.md`.
 [3]: https://github.com/pietvandongen/batlog2csv
 [4]: https://github.com/pietvandongen/batlog-python
 [5]: http://pietvandongen.github.io/batlog-d3-chart/
-[6]: https://raw.githubusercontent.com/pietvandongen/batlog-d3-chart/gh-pages/example-data/example-large.csv
+[6]: https://raw.githubusercontent.com/pietvandongen/batlog-d3-chart/gh-pages/example-data/example.csv
+[7]: https://raw.githubusercontent.com/pietvandongen/batlog-d3-chart/gh-pages/example-data/example-large.csv
