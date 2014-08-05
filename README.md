@@ -6,7 +6,7 @@ Visualize [batlog][1] data using the [D3.js][2] library.
 
 Skip to [the demo page][5] for a demonstration of this project. The result should look something like this:
 
-![alt tag](http://pietvandongen.github.io/batlog-d3-chart/images/example.png)
+![example graph](http://pietvandongen.github.io/batlog-d3-chart/images/example.png)
 
 ## Requirements
 
