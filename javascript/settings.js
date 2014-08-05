@@ -52,3 +52,5 @@ var margin = {
 };
 
 var percentageFormat = d3.format(".0%");
+
+var minimalChartHeight = 250;

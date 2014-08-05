@@ -39,6 +39,26 @@ a {
     text-align: center;
 }
 
+#legend {
+    background: #edeff5;
+    padding: 10px;
+}
+
+#legend ul {
+    color: #525763;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#legend .key {
+    border-top-style: solid;
+    border-top-width: 5px;
+    box-sizing: border-box;
+    display: inline-block;
+    line-height: 18px;
+}
+
 .graph-section {
     display: none;
 }

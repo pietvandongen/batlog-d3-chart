@@ -5,9 +5,10 @@ var batteryCapacitySection = d3.select("#battery-capacity");
 var batteryCapacityGraph = d3.select("#battery-capacity-graph");
 var statusPlaceholder = d3.select("#userMessage");
 
-var chartWidth = dropZone.style("width");
-var width = chartWidth.substring(0, chartWidth.length - 2) - margin.left - margin.right;
-var height = Math.round((width / 3) - margin.top - margin.bottom);
+var chartWidth = dropZone.style("width").substring(0, dropZone.style("width").length - 2);
+var chartHeight = Math.round(chartWidth / 3);
+var width = chartWidth - margin.left - margin.right;
+var height = (chartHeight > 250 ? chartHeight : minimalChartHeight) - margin.top - margin.bottom;
 
 var batteryUsageSvg = batteryUsageGraph.append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -66,6 +67,15 @@ dropZone.on("drop", function () {
 });
 
 var plotBatteryUsageChart = function (data) {
+    var legend = d3.select("#legend")
+        .append("ul")
+        .attr("class", "list-inline");
+
+    var legendKeys = legend.selectAll("#legend .key")
+        .data(colorScale.range());
+
+    var legendKeyWidthPercentage = 100 / colorScale.domain().length;
+
     var x = d3.time.scale()
         .domain([
             data[0].date,
@@ -143,6 +153,14 @@ var plotBatteryUsageChart = function (data) {
         .attr("dy", ".75em")
         .attr("transform", "rotate(-90)")
         .text("time of day");
+
+    legendKeys.enter().append("li")
+        .attr("class", "key")
+        .style("border-top-color", String)
+        .style("width", legendKeyWidthPercentage + "%")
+        .text(function(d, i) {
+            return percentageFormat(colorScale.domain()[i]);
+        });
 
     batteryUsageSection.classed("active", true);
 };
