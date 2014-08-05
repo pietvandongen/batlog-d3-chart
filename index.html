@@ -10,10 +10,22 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <h1>batlog-d3-chart example</h1>
+    <h1>batlog-d3-chart demo</h1>
 
     <div id="dropZone">
         <span id="userMessage">Drop your <a href="https://github.com/pietvandongen/batlog-python">batlog CSV file</a> here</span>
+    </div>
+
+    <div id="battery-usage" class="graph-section">
+        <h2>Battery usage over time</h2>
+
+        <div id="battery-usage-graph" class="graph"></div>
+    </div>
+
+    <div id="battery-capacity" class="graph-section">
+        <h2>Battery capacity over time</h2>
+
+        <div id="battery-capacity-graph" class="graph"></div>
     </div>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>

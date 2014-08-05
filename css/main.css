@@ -23,9 +23,13 @@ a {
     background: #fff;
 }
 
-#dropZone.parsing{
+#dropZone.parsing {
     background: #fff;
     border: 0;
+}
+
+#dropZone.done {
+    display: none;
 }
 
 #userMessage {
@@ -35,8 +39,17 @@ a {
     text-align: center;
 }
 
-#chart {
-    height: 400px;
+.graph-section {
+    display: none;
+}
+
+.graph-section.active {
+    display: block;
+}
+
+.graph {
+    box-sizing: border-box;
+    margin-bottom: 20px;
     width: 100%;
 }
 

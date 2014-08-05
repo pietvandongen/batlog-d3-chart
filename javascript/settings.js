@@ -50,3 +50,5 @@ var margin = {
     bottom: 70,
     left: 40
 };
+
+var percentageFormat = d3.format(".0%");
