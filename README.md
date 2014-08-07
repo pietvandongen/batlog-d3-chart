@@ -37,7 +37,7 @@ npm install
 
 ### Grunt
 
-Now you're ready to build! This project uses [Grunt][9] to run all its tasks. There are a few tasks defined in the [``GruntFile.js``](GruntFile.js) task definition file, but there is an [alias task][7] available called ``default`` that runs all necessary tasks in the correct order (from the project's root directory again):
+Now you're ready to build! This project uses [Grunt][9] to run all its tasks. There are a few tasks defined in the [``GruntFile.js``](GruntFile.js) task definition file, but there is an alias task available called ``default`` that runs all necessary tasks in the correct order (from the project's root directory again):
 
 ```bash
 grunt default
