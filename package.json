@@ -1,0 +1,24 @@
+{
+    "name": "batlog-d3-chart",
+    "version": "0.0.1",
+    "contributors": [
+        {
+            "name": "Piet van Dongen",
+            "email": "piet@studio-donder.nl",
+            "url": "https://github.com/pietvandongen"
+        }
+    ],
+    "description": "Visualize batlog data using the D3.js library.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pietvandongen/batlog-d3-chart.git"
+    },
+    "devDependencies": {
+        "grunt": "0.4.x",
+        "grunt-bower-task": "0.3.4"
+    },
+    "scripts": {
+        "test": "grunt test"
+    },
+    "license": "Apache-2.0"
+}
