@@ -1,6 +1,6 @@
 # batlog2-d3-chart
 
-Visualize [batlog][1] data using the [D3.js][2] library.
+Visualize [batlog][1] data using the [d3.js][2] library.
 
 ## Demo
 
@@ -21,6 +21,30 @@ Load the `index.html` page (or use the [demo page][5]) and drop the batlog CSV f
 
 Depending on the size of your log file, system configuration and browser, this can take a while.
 
+## Building yourself
+
+### Node.js
+
+In order to build this project's CSS and JavaScript files, you'll need to have [node.js][8] installed on your machine. 
+
+### Dependencies
+
+Once you've installed node.js, browse to the project's root directory and run the following command to install all dependencies:
+
+```bash
+npm install
+``
+
+### Grunt
+
+Now you're ready to build! This project uses [Grunt][9] to run all its tasks. There are a few tasks defined in the [``GruntFile.js``](GruntFile.js) task definition file, but there is an [alias task][7] available called ``default`` that runs all necessary tasks in the correct order (from the project's root directory again):
+
+```bash
+grunt default
+```
+
+This will compile and minify all files and put the results in the ``build`` directory.
+
 ## License
 
 Apache License, Version 2.0, see `LICENSE.md`.
@@ -32,3 +56,5 @@ Apache License, Version 2.0, see `LICENSE.md`.
 [5]: http://pietvandongen.github.io/batlog-d3-chart/
 [6]: https://raw.githubusercontent.com/pietvandongen/batlog-d3-chart/gh-pages/example-data/example.csv
 [7]: https://raw.githubusercontent.com/pietvandongen/batlog-d3-chart/gh-pages/example-data/example-large.csv
+[8]: http://nodejs.org/
+[9]: http://gruntjs.com/
