@@ -1,0 +1,83 @@
+@import "../../lib/normalize-less/normalize";
+
+body {
+  background: #fff;
+  color: #525763;
+  font-size: 10px;
+  padding: 1em;
+}
+
+a {
+  color: #4396b6;
+  border-bottom: 1px solid #4396b6;
+  text-decoration: none;
+}
+
+#dropZone {
+  background: #eee;
+  border: 3px dashed #ccc;
+  box-sizing: border-box;
+  height: 400px;
+  width: 100%;
+}
+
+#dropZone.active {
+  background: #fff;
+}
+
+#dropZone.parsing {
+  background: #fff;
+  border: 0;
+}
+
+#dropZone.done {
+  display: none;
+}
+
+#userMessage {
+  display: block;
+  font-size: 20px;
+  line-height: 400px;
+  text-align: center;
+}
+
+#legend {
+  background: #edeff5;
+  padding: 10px;
+}
+
+#legend ul {
+  color: #525763;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#legend .key {
+  border-top-style: solid;
+  border-top-width: 5px;
+  box-sizing: border-box;
+  display: inline-block;
+  line-height: 18px;
+}
+
+.graph-section {
+  display: none;
+}
+
+.graph-section.active {
+  display: block;
+}
+
+.graph {
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #525763;
+  shape-rendering: crispEdges;
+}

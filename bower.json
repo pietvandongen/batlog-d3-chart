@@ -1,0 +1,7 @@
+{
+    "name": "batlog-d3-chart",
+    "dependencies": {
+        "d3": "3.4.x",
+        "normalize-less": "latest"
+    }
+}
