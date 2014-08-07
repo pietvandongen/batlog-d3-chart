@@ -33,7 +33,7 @@ Once you've installed node.js, browse to the project's root directory and run th
 
 ```bash
 npm install
-``
+```
 
 ### Grunt
 
