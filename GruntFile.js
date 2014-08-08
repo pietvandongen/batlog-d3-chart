@@ -6,6 +6,20 @@ module.exports = function (grunt) {
             install: {}
         },
 
+        csslint: {
+            options: {
+                csslintrc: '.csslintrc'
+            },
+            build: {
+                options: {
+                    import: 2
+                },
+                src: [
+                    'build/css/main.css'
+                ]
+            }
+        },
+
         jshint: {
             build: [
                 'src/javascript/settings.js',
@@ -15,6 +29,14 @@ module.exports = function (grunt) {
 
         less: {
             build: {
+                options: {
+                    cleancss: false
+                },
+                files: {
+                    'build/css/main.css': 'src/less/main.less'
+                }
+            },
+            buildMinified: {
                 options: {
                     cleancss: true
                 },
@@ -38,6 +60,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-bower-task');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -46,6 +69,8 @@ module.exports = function (grunt) {
         'bower:install',
         'jshint:build',
         'uglify',
-        'less:build'
+        'less:build',
+        'csslint',
+        'less:buildMinified'
     ]);
 };

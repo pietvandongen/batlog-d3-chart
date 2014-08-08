@@ -1,0 +1,9 @@
+{
+    "adjoining-classes": false,
+    "box-sizing": false,
+    "compatible-vendor-prefixes": false,
+    "ids": false,
+    "known-properties": false,
+    "outline-none": false,
+    "unqualified-attributes": false
+}
