@@ -6,6 +6,13 @@ module.exports = function (grunt) {
             install: {}
         },
 
+        jshint: {
+            build: [
+                'src/javascript/settings.js',
+                'src/javascript/main.js'
+            ]
+        },
+
         less: {
             build: {
                 options: {
@@ -31,18 +38,14 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-bower-task');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('default', [
         'bower:install',
-        'less:build',
-        'uglify'
-    ]);
-
-    grunt.registerTask('test', [
-        'bower:install',
-        'less:build',
-        'uglify'
+        'jshint:build',
+        'uglify',
+        'less:build'
     ]);
 };

@@ -53,7 +53,7 @@ dropZone.on("drop", function () {
                 time: d3.time.format("%H:%M:%S").parse(d.Date.substring(11, 19)),
                 charge: d.CurrentCapacity / d.MaxCapacity,
                 capacity: d.MaxCapacity / d.DesignCapacity
-            }
+            };
         });
 
         dropZone.classed("parsing", false);
