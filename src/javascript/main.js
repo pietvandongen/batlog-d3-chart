@@ -48,12 +48,14 @@ dropZone.on("drop", function () {
 
     reader.onload = function (event) {
         parsedData = d3.csv.parse(event.target.result, function (d) {
-            return {
-                date: d3.time.format("%Y-%m-%d").parse(d.Date.substring(0, 10)),
-                time: d3.time.format("%H:%M:%S").parse(d.Date.substring(11, 19)),
-                charge: d.CurrentCapacity / d.MaxCapacity,
-                capacity: d.MaxCapacity / d.DesignCapacity
-            };
+            if (d.Date) {
+                return {
+                    date: d3.time.format("%Y-%m-%d").parse(d.Date.substring(0, 10)),
+                    time: d3.time.format("%H:%M:%S").parse(d.Date.substring(11, 19)),
+                    charge: d.CurrentCapacity / d.MaxCapacity,
+                    capacity: d.MaxCapacity / d.DesignCapacity
+                };
+            }
         });
 
         dropZone.classed("parsing", false);
